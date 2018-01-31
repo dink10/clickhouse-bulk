@@ -2,6 +2,12 @@
 
 ClickHouse-Bulk
 
+It is a fork of https://github.com/nikepan/clickhouse-bulk
+
+In this version used more powerful fasthttp server. It is better under high load than echo server
+
+Functionality in this version the same as in original.
+
 Simple Yandex ClickHouse (https://clickhouse.yandex/) insert collector. It collect requests and send to ClickHouse servers.
 
 

@@ -134,6 +134,9 @@ func (srv *ClickhouseServer) SendQuery(queryString string, data string) (respons
 
 		log.Printf("send %+v rows to %+v of %+v\n", strings.Count(data, "\n")+1, srv.URL, queryString)
 
+		log.Println(srv.URL)
+		log.Println(queryString)
+
 		resp, err := srv.Client.Post(srv.URL+"?"+queryString, "", strings.NewReader(data))
 		if err != nil {
 			srv.Bad = true

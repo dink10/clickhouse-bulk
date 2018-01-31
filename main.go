@@ -70,16 +70,13 @@ func main() {
 
 	srv := InitServer(cnf.Listen, collect, cnf.Debug)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	_, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	go func() {
 		for {
 			_ = <-signals
 			log.Printf("STOP signal\n")
-			if err := srv.Shutdown(ctx); err != nil {
-				log.Printf("Shutdown error %+v\n", err)
-				safeQuit(collect, sender)
-			}
+			safeQuit(collect, sender)
 		}
 	}()
 
