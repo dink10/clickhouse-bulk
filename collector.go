@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/labstack/gommon/log"
 	"net/url"
 	"regexp"
 	"strings"
@@ -149,7 +148,6 @@ func (c *Collector) AddTable(name string) {
 func (c *Collector) Push(params string, content string) {
 	_, ok := c.Tables[params]
 	if !ok {
-		//log.Printf("'%+v'\n", params)
 		c.AddTable(params)
 	}
 	c.Tables[params].Add(content)
@@ -158,7 +156,6 @@ func (c *Collector) Push(params string, content string) {
 // ParseQuery - parsing inbound query to unified format (params/query), content (query data)
 func (c *Collector) ParseQuery(queryString string, body string) (params string, content string, insert bool) {
 	i := strings.Index(queryString, "query=")
-	log.Print(queryString)
 	if i >= 0 {
 		if HasPrefix(queryString[i+6:], "insert") {
 			insert = true
@@ -179,7 +176,6 @@ func (c *Collector) ParseQuery(queryString string, body string) (params string, 
 			return queryString, body, false
 		}
 		prefix, cnt := c.Parse(uq)
-		log.Print(params)
 		if strings.HasSuffix(params, "&") || params == "" {
 			params += "query=" + url.QueryEscape(strings.TrimSpace(prefix))
 		} else {

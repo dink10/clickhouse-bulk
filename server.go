@@ -30,9 +30,6 @@ func (server *Server) writeHandler(c *fasthttp.RequestCtx) {
 
 	qs := string(c.RequestURI())
 	params, content, insert := server.Collector.ParseQuery(qs, s)
-	log.Println(params)
-	log.Println(content)
-	log.Println(insert)
 	if insert {
 		go server.Collector.Push(params, content)
 		c.SetStatusCode(fasthttp.StatusOK)
